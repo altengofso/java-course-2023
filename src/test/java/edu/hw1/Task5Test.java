@@ -1,6 +1,6 @@
 package edu.hw1;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,6 +11,6 @@ public class Task5Test {
     @ValueSource(ints = { 11211230, 13001120, 23336014, 11 })
     @DisplayName("Is palindrome")
     void testIsPalindromeDescendant(int number) {
-        assertTrue(Task5.isPalindromeDescendant(number));
+        assertThat(Task5.isPalindromeDescendant(number)).isTrue();
     }
 }

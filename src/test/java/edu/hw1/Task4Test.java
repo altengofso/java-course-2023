@@ -1,10 +1,10 @@
 package edu.hw1;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Task4Test {
     @ParameterizedTest
@@ -14,7 +14,7 @@ public class Task4Test {
             'badce', 'abcde'
             """)
     @DisplayName("Fix broken string")
-    void testFixString(String broken, String normal) {
-        assertEquals(Task4.fixString(broken), normal);
+    void testFixString(String broken, String fixed) {
+        assertThat(Task4.fixString(broken)).isEqualTo(fixed);
     }
 }

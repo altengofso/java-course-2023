@@ -10,14 +10,14 @@ public class SampleTest {
     @DisplayName("Filter even numbers")
     void filterEvenNumbers() {
         // given
-        int[] numbers = new int[] {1, 2, 3, 4, 5};
+        int[] numbers = new int[] { 1, 2, 3, 4, 5 };
 
         // when
         int[] evenNumbers = EvenArrayUtils.filter(numbers);
 
         // then
         assertThat(evenNumbers)
-            .containsExactly(2, 4)
-            .hasSize(2);
+                .containsExactly(2, 4)
+                .hasSize(2);
     }
 }
