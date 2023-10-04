@@ -9,7 +9,7 @@ public class Task2 {
         int number = givenNumber;
         int digits = 0;
         if (number == 0) {
-            return digits = 1;
+            digits = 1;
         }
         while (number % 10 != 0) {
             digits++;
