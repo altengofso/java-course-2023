@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class Task3Test {
     @Test
-    @DisplayName("Проверка возможности вложить один массив в другой")
+    @DisplayName("Вложение одного массива в другой")
     void testIsNestable() {
         assertTrue(Task3.isNestable(new int[] { 1, 2, 3, 4 }, new int[] { 0, 6 }));
         assertTrue(Task3.isNestable(new int[] { 3, 1 }, new int[] { 4, 0 }));
