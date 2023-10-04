@@ -7,7 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class SampleTest {
     @Test
-    @DisplayName("Фильтрация четных чисел")
+    @DisplayName("Filter even numbers")
     void filterEvenNumbers() {
         // given
         int[] numbers = new int[] {1, 2, 3, 4, 5};

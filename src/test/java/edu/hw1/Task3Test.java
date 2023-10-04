@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class Task3Test {
     @Test
-    @DisplayName("Вложение одного массива в другой")
+    @DisplayName("Array is nestable in other array")
     void testIsNestable() {
         assertTrue(Task3.isNestable(new int[] { 1, 2, 3, 4 }, new int[] { 0, 6 }));
         assertTrue(Task3.isNestable(new int[] { 3, 1 }, new int[] { 4, 0 }));
@@ -16,7 +16,11 @@ public class Task3Test {
         assertTrue(Task3.isNestable(new int[] {}, new int[] { 1 }));
         assertTrue(Task3.isNestable(new int[] {}, new int[] { 1, 2 }));
         assertTrue(Task3.isNestable(new int[] { 2 }, new int[] { 1, 3 }));
+    }
 
+    @Test
+    @DisplayName("Array is not nestable in other array")
+    void testIsNotNestable() {
         assertFalse(Task3.isNestable(new int[] { 9, 9, 8 }, new int[] { 8, 9 }));
         assertFalse(Task3.isNestable(new int[] { 1, 2, 3, 4 }, new int[] { 2, 3 }));
         assertFalse(Task3.isNestable(new int[] { 1 }, new int[] { 2 }));

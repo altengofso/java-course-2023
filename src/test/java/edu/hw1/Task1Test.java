@@ -16,7 +16,7 @@ public class Task1Test {
             "2:-1, -1",
             "2:abc, -1"
     })
-    @DisplayName("Перевод строки формата mm:ss в общее количество секунд")
+    @DisplayName("String mm:ss to total seconds")
     void testMinutesToSeconds(String inputString, int totalSeconds) {
         assertThat(Task1.minutesToSeconds(inputString)).isEqualTo(totalSeconds);
     }
