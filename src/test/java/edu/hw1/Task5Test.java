@@ -8,9 +8,16 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class Task5Test {
     @ParameterizedTest(name = "{0} is palindrom")
-    @ValueSource(ints = { 11211230, 13001120, 23336014, 11 })
+    @ValueSource(ints = { 11211230, 13001120, 23336014, 11, -11 })
     @DisplayName("Is palindrome")
     void testIsPalindromeDescendant(int number) {
         assertThat(Task5.isPalindromeDescendant(number)).isTrue();
+    }
+
+    @ParameterizedTest(name = "{0} is not palindrom")
+    @ValueSource(ints = { 19, 124, 38476 })
+    @DisplayName("Is palindrome")
+    void testIsNotPalindromeDescendant(int number) {
+        assertThat(Task5.isPalindromeDescendant(number)).isFalse();
     }
 }

@@ -4,16 +4,19 @@ public final class Task5 {
     private Task5() {
     }
 
-    public static boolean isPalindromeDescendant(Integer givenNumber) {
-        return isPalindrome(givenNumber.toString());
+    public static boolean isPalindromeDescendant(int givenNumber) {
+        return isPalindrome(Integer.valueOf(Math.abs(givenNumber)).toString());
     }
 
     public static boolean isPalindrome(String number) {
         String reversed = (new StringBuilder(number)).reverse().toString();
         if (number.equals(reversed)) {
             return true;
-        } else if (number.length() > 1) {
-            return isPalindrome(createDescendant(number));
+        } else {
+            String descendant = createDescendant(number);
+            if (descendant.length() > 1) {
+                return isPalindrome(createDescendant(number));
+            }
         }
         return false;
     }
