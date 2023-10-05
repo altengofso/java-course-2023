@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class Task6Test {
+class Task6Test {
     @ParameterizedTest
     @MethodSource("KaprekarProvider")
     @DisplayName("Count steps to Kaprekar Const")

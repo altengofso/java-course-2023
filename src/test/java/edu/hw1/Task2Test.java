@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class Task2Test {
+class Task2Test {
     @ParameterizedTest()
     @CsvSource(textBlock = """
             4666,   4

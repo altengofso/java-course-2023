@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class Task7Test {
+class Task7Test {
     @ParameterizedTest
     @MethodSource("TestRotateRightProvider")
     @DisplayName("Cyclic shift of bits to the right")

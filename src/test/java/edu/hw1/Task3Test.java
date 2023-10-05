@@ -5,7 +5,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class Task3Test {
+class Task3Test {
     @Test
     @DisplayName("Array is nestable in other array")
     void testIsNestable() {
