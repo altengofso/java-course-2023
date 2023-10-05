@@ -16,15 +16,17 @@ public final class Task8 {
             for (int j = 0; j < 8; ++j) {
                 if (board[i][j] == 1) {
                     for (int k = 0; k < 8; ++k) {
-                        int ti = i + di[k];
-                        int tj = j + dj[k];
-                        if (ti >= 0 && ti < 8 && tj >= 0 && tj < 8 && board[ti][tj] == 1) {
-                                return false;
+                        if (checkCapture(board, i + di[k], j + dj[k])) {
+                            return false;
                         }
                     }
                 }
             }
         }
         return true;
+    }
+
+    public static boolean checkCapture(int[][] board, int i, int j) {
+        return i >= 0 && i < 8 && j >= 0 && j < 8 && board[i][j] == 1;
     }
 }
