@@ -26,6 +26,7 @@ public final class Task8 {
         return true;
     }
 
+    @SuppressWarnings("MagicNumber")
     public static boolean checkCapture(int[][] board, int i, int j) {
         return i >= 0 && i < 8 && j >= 0 && j < 8 && board[i][j] == 1;
     }
