@@ -18,10 +18,9 @@ public final class Task8 {
                     for (int k = 0; k < 8; ++k) {
                         int ti = i + di[k];
                         int tj = j + dj[k];
-                        if (ti >= 0 && ti < 8 && tj >= 0 && tj < 8) {
-                            if (board[ti][tj] == 1) {
+                        if (ti >= 0 && ti < 8 && tj >= 0 && tj < 8 &&  (board[ti][tj] == 1)) {
                                 return false;
-                            }
+                            
                         }
                     }
                 }
