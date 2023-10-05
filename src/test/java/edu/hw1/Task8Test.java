@@ -12,13 +12,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class Task8Test {
 
     @ParameterizedTest
-    @MethodSource("KnightBoardCapture")
+    @MethodSource("KnightBoardCaptureTrue")
     @DisplayName("No knight can capture another knight")
-    void testKnightBoardCapture(int[][] board) {
+    void testKnightBoardCaptureTrue(int[][] board) {
         assertThat(Task8.knightBoardCapture(board)).isTrue();
     }
 
-    static Stream<Arguments> KnightBoardCapture() {
+    static Stream<Arguments> KnightBoardCaptureTrue() {
         return Stream.of(
                 Arguments.of(new Object[] { new int[][] { { 0, 0, 0, 1, 0, 0, 0, 0 },
                         { 0, 0, 0, 0, 0, 0, 0, 0 },
