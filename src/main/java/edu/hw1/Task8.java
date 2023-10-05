@@ -20,7 +20,6 @@ public final class Task8 {
                         int tj = j + dj[k];
                         if (ti >= 0 && ti < 8 && tj >= 0 && tj < 8 && board[ti][tj] == 1) {
                                 return false;
-                            
                         }
                     }
                 }
