@@ -14,6 +14,7 @@ public class Task0Test {
     void testLogHelloWorld() {
         ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
         System.setOut(new PrintStream(logOutput));
+        System.setErr(new PrintStream(logOutput));
 
         Task0.logHelloWorld();
 
