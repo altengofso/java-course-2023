@@ -15,7 +15,7 @@ public final class Task5 {
         } else {
             String descendant = createDescendant(number);
             if (descendant.length() > 1) {
-                return isPalindrome(createDescendant(number));
+                return isPalindrome(descendant);
             }
         }
         return false;
