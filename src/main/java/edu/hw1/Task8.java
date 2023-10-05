@@ -4,6 +4,7 @@ public final class Task8 {
     private Task8() {
     }
 
+    @SuppressWarnings("MagicNumber")
     public static boolean knightBoardCapture(int[][] board) {
         int[] di = { -2, -1, 1, 2, 2, 1, -1, -2 };
         int[] dj = { 1, 2, 2, 1, -1, -2, -2, -1 };
