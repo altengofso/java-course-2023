@@ -18,6 +18,6 @@ public class Task0Test {
         Task0.logHelloWorld();
 
         String logMessage = logOutput.toString();
-        assertThat(logMessage).contains("Привет, мир!");
+        assertThat(logMessage).contains("Hello, world!");
     }
 }
