@@ -15,7 +15,7 @@ public final class Task7 {
     public static int cycleBitShift(int number, int shift) {
         String bitNumber = Integer.toBinaryString(number);
         int neededShift = shift % bitNumber.length();
-        String shifted = new String();
+        String shifted = "";
         int length = bitNumber.length();
         if (neededShift > 0) {
             shifted = bitNumber.substring(length - neededShift, length) + bitNumber.substring(0, length - neededShift);
