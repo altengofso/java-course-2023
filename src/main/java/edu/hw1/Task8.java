@@ -6,8 +6,12 @@ public final class Task8 {
 
     @SuppressWarnings("MagicNumber")
     public static boolean knightBoardCapture(int[][] board) {
-        int[] di = { -2, -1, 1, 2, 2, 1, -1, -2 };
-        int[] dj = { 1, 2, 2, 1, -1, -2, -2, -1 };
+        int[] di = new int[] {
+                -2, -1, 1, 2, 2, 1, -1, -2
+        };
+        int[] dj = new int[] {
+                1, 2, 2, 1, -1, -2, -2, -1
+        };
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 if (board[i][j] == 1) {
