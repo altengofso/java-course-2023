@@ -5,7 +5,7 @@ public final class Task5 {
     }
 
     public static boolean isPalindromeDescendant(int givenNumber) {
-        return isPalindrome(Integer.valueOf(Math.abs(givenNumber)).toString());
+        return isPalindrome(Integer.toString(Math.abs(givenNumber)));
     }
 
     public static boolean isPalindrome(String number) {
