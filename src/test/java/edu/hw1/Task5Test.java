@@ -16,7 +16,7 @@ public class Task5Test {
 
     @ParameterizedTest(name = "{0} is not palindrom")
     @ValueSource(ints = { 19, 124, 38476 })
-    @DisplayName("Is palindrome")
+    @DisplayName("Is not palindrome")
     void testIsNotPalindromeDescendant(int number) {
         assertThat(Task5.isPalindromeDescendant(number)).isFalse();
     }
