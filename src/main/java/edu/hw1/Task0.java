@@ -10,6 +10,6 @@ public final class Task0 {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static void logHelloWorld() {
-        LOGGER.info("Hello, world!");
+        LOGGER.info("Привет, мир!");
     }
 }
