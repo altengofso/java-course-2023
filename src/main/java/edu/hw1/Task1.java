@@ -7,16 +7,21 @@ public final class Task1 {
     @SuppressWarnings("MagicNumber")
     public static int minutesToSeconds(String inputString) {
         String[] result = inputString.split(":");
+        int minutes;
+        int seconds;
         try {
-            int minutes = Integer.parseInt(result[0]);
-            int seconds = Integer.parseInt(result[1]);
-            if (seconds < 0 || seconds > 59 || minutes < 0) {
-                return -1;
-            } else {
-                return minutes * 60 + seconds;
+            minutes = Integer.parseInt(result[0]);
+            seconds = Integer.parseInt(result[1]);
+            if (seconds < 0 || seconds > 59) {
+                throw new IllegalArgumentException("Seconds should be in the range from 0 to 59");
             }
-        } catch (NumberFormatException e) {
+            if (minutes < 0) {
+                throw new IllegalArgumentException("Minutes must be a non-negative number");
+            }
+        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
             return -1;
         }
+        return minutes * 60 + seconds;
+
     }
 }

@@ -9,6 +9,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class Task1Test {
     @ParameterizedTest
     @CsvSource(value = {
+            "2, -1",
             "01:00, 60",
             "13:56, 836",
             "10:60, -1",
