@@ -22,6 +22,5 @@ public final class Task1 {
             return -1;
         }
         return minutes * 60 + seconds;
-
     }
 }
