@@ -14,7 +14,7 @@ public final class Task3 {
         return findMin(first) > findMin(second) && findMax(first) < findMax(second);
     }
 
-    public static int findMax(int[] array) {
+    private static int findMax(int[] array) {
         int max = array[0];
         for (int number : array) {
             max = number > max ? number : max;
@@ -22,7 +22,7 @@ public final class Task3 {
         return max;
     }
 
-    public static int findMin(int[] array) {
+    private static int findMin(int[] array) {
         int min = array[0];
         for (int number : array) {
             min = number < min ? number : min;

@@ -1,22 +1,24 @@
 package edu.hw1;
 
 public final class Task8 {
+    private static final int[] DI = {
+            -2, -1, 1, 2, 2, 1, -1, -2
+    };
+    private static final int[] DJ = {
+            1, 2, 2, 1, -1, -2, -2, -1
+    };
+    private static final int BOARD_SIZE = 8;
+    private static final int POSSIBLE_MOVES = 8;
+
     private Task8() {
     }
 
-    @SuppressWarnings("MagicNumber")
     public static boolean knightBoardCapture(int[][] board) {
-        int[] di = new int[] {
-                -2, -1, 1, 2, 2, 1, -1, -2
-        };
-        int[] dj = new int[] {
-                1, 2, 2, 1, -1, -2, -2, -1
-        };
-        for (int i = 0; i < 8; ++i) {
-            for (int j = 0; j < 8; ++j) {
+        for (int i = 0; i < BOARD_SIZE; ++i) {
+            for (int j = 0; j < BOARD_SIZE; ++j) {
                 if (board[i][j] == 1) {
-                    for (int k = 0; k < 8; ++k) {
-                        if (checkCapture(board, i + di[k], j + dj[k])) {
+                    for (int k = 0; k < POSSIBLE_MOVES; ++k) {
+                        if (willKnigthBeCaptured(board, i + DI[k], j + DJ[k])) {
                             return false;
                         }
                     }
@@ -26,8 +28,7 @@ public final class Task8 {
         return true;
     }
 
-    @SuppressWarnings("MagicNumber")
-    public static boolean checkCapture(int[][] board, int i, int j) {
-        return i >= 0 && i < 8 && j >= 0 && j < 8 && board[i][j] == 1;
+    private static boolean willKnigthBeCaptured(int[][] board, int i, int j) {
+        return i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE && board[i][j] == 1;
     }
 }

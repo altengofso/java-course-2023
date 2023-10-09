@@ -15,7 +15,8 @@ class Task1Test {
             "10:60, -1",
             "-1:30, -1",
             "2:-1, -1",
-            "2:abc, -1"
+            "2:abc, -1",
+            "abc:2, -1"
     })
     @DisplayName("String mm:ss to total seconds")
     void testMinutesToSeconds(String inputString, int totalSeconds) {
