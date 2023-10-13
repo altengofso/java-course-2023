@@ -4,20 +4,19 @@ import java.util.Arrays;
 
 public final class Task6 {
     private static final int KARPERCAR_NUMBER = 6174;
-    private static final int[] ALLOWED_NUMBER_RANGE = {
-            1001, 9999
-    };
+    private static final int ALLOWED_NUMBER_LOWER_LIMIT = 1001;
+    private static final int ALLOWED_NUMBER_UPPER_LIMIT = 9999;
 
     private Task6() {
     }
 
     @SuppressWarnings("MagicNumber")
     public static int countK(int number) {
-        if (number < ALLOWED_NUMBER_RANGE[0] || number > ALLOWED_NUMBER_RANGE[1]) {
-            throw new IllegalArgumentException("Number should be in range from 1001 to 9999");
+        if (number < ALLOWED_NUMBER_LOWER_LIMIT || number > ALLOWED_NUMBER_UPPER_LIMIT) {
+            throw new IllegalArgumentException("Number should be in range from %d to %d"
+                    .formatted(ALLOWED_NUMBER_LOWER_LIMIT, ALLOWED_NUMBER_UPPER_LIMIT));
         }
         return functionK(number, 0);
-
     }
 
     private static int functionK(int number, int steps) {

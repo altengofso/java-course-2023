@@ -11,13 +11,13 @@ public final class Task5 {
     }
 
     private static boolean isPalindrome(StringBuilder number) {
-        boolean equals = true;
-        for (int i = 0; i < number.length(); ++i) {
+        boolean isPalindrome = true;
+        for (int i = 0; i < number.length() / 2; ++i) {
             if (number.charAt(i) != number.charAt(number.length() - i - 1)) {
-                equals = false;
+                isPalindrome = false;
             }
         }
-        if (equals) {
+        if (isPalindrome) {
             return true;
         } else {
             StringBuilder descendant = createDescendant(number);
