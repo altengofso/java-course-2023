@@ -23,7 +23,7 @@ public class Task3Test {
         try {
             Task3.PopularCommandExecutor executor = new Task3.PopularCommandExecutor(manager, maxAttempts);
             executor.updatePackages();
-        } catch (Throwable exception) {
+        } catch (Task3.ConnectionException exception) {
             assertThat(exception.getMessage()).isEqualTo(
                 "Failed to execute command after %d attempts.".formatted(maxAttempts));
             assertThat(exception.getCause().getMessage()).isEqualTo("Failed to execute command.");
