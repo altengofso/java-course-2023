@@ -9,24 +9,29 @@ public final class Task2 {
         private int height;
 
         public Rectangle() {
-            width = 0;
-            height = 0;
         }
 
-        public final int getWidth() {
+        public Rectangle(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        public int getWidth() {
             return width;
         }
 
-        public final int getHeight() {
+        public int getHeight() {
             return height;
         }
 
-        public final void setWidth(int width) {
+        public Rectangle setWidth(int width) {
             this.width = width;
+            return this;
         }
 
-        public final void setHeight(int height) {
+        public Rectangle setHeight(int height) {
             this.height = height;
+            return this;
         }
 
         public double area() {
@@ -35,12 +40,26 @@ public final class Task2 {
     }
 
     public static class Square extends Rectangle {
+
+        public Square() {
+        }
+
+        public Square(int side) {
+            super(side, side);
+        }
+
+        public Square setSide(int side) {
+            return new Square(side);
+        }
+
         @Override
-        public double area() {
-            if (getHeight() * getWidth() == 0) {
-                return Math.max(Math.pow(getHeight(), 2), Math.pow(getWidth(), 2));
-            }
-            return super.area();
+        public Rectangle setWidth(int width) {
+            return new Rectangle(width, getHeight());
+        }
+
+        @Override
+        public Rectangle setHeight(int height) {
+            return new Rectangle(getWidth(), height);
         }
     }
 }
