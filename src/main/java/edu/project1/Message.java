@@ -1,9 +1,6 @@
 package edu.project1;
 
-import org.jetbrains.annotations.NotNull;
-
 public sealed interface Message {
-    @NotNull
     String body();
 
     record Intro(String body) implements Message {

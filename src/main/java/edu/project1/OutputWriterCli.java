@@ -14,4 +14,9 @@ public class OutputWriterCli implements OutputWriter {
         writer.println(output);
         writer.flush();
     }
+
+    @Override
+    public void close() {
+        writer.close();
+    }
 }

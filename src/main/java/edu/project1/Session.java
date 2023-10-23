@@ -8,8 +8,8 @@ public class Session {
     private boolean active;
     private SessionLastState lastState;
 
-    Session(String hiddenWord, int maxAttempts) {
-        this.hiddenWord = hiddenWord;
+    Session(Dictionary dictionary, int maxAttempts) {
+        this.hiddenWord = dictionary.randomWord();
         this.userAnswer = initializeUserAnswer(hiddenWord);
         this.maxAttempts = maxAttempts;
         this.attempts = 0;

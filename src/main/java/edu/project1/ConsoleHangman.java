@@ -4,27 +4,26 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class ConsoleHangman {
-    private boolean active = true;
+    private boolean isGameActive = true;
     private final int maxAttempts = 5;
+    private final String giveUpWord = "stop";
 
     public void run() {
         Dictionary dictionary = new PredefinedDictionary();
         InputReader inputReader = new InputReaderCli(new Scanner(System.in));
         OutputWriter outputWriter = new OutputWriterCli(new PrintWriter(System.out));
         printMessage(new Message.Intro(), outputWriter);
-        while (active) {
-            String hiddenWord = dictionary.randomWord();
-            Session session = new Session(hiddenWord, maxAttempts);
+        while (isGameActive) {
+            Session session = new Session(dictionary, maxAttempts);
             while (session.isActive()) {
                 printMessage(new Message.GuessLetter(session), outputWriter);
                 String input = inputReader.read();
                 printMessage(tryGuess(session, input), outputWriter);
             }
-            switch (session.getLastState()) {
-                case SessionLastState.DEFEAT -> printMessage(new Message.Defeat(), outputWriter);
-                case SessionLastState.WON -> printMessage(new Message.Win(), outputWriter);
-                default -> {
-                }
+            if (session.getLastState() == SessionLastState.DEFEAT) {
+                printMessage(new Message.Defeat(), outputWriter);
+            } else if (session.getLastState() == SessionLastState.WON) {
+                printMessage(new Message.Win(), outputWriter);
             }
             printMessage(new Message.PlayAgain(), outputWriter);
             while (session.getLastState().equals(SessionLastState.DEFEAT)
@@ -33,10 +32,12 @@ public class ConsoleHangman {
                 printMessage(playAgain(session, input), outputWriter);
             }
         }
+        inputReader.close();
+        outputWriter.close();
     }
 
     private Message tryGuess(Session session, String input) {
-        if (input.equals("stop")) {
+        if (input.equals(giveUpWord)) {
             return session.giveUp();
         } else if (input.length() == 1) {
             return session.guess(input.charAt(0));
@@ -50,7 +51,7 @@ public class ConsoleHangman {
                 return session.playAgain();
             }
             case "n" -> {
-                active = false;
+                isGameActive = false;
                 return session.goodBye();
             }
             default -> {

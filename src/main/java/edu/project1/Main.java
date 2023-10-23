@@ -1,6 +1,6 @@
 package edu.project1;
 
-public class Main {
+public final class Main {
     private Main() {
     }
 
