@@ -19,6 +19,6 @@ class Task1Test {
     @MethodSource("AtbashArguments")
     @DisplayName("Test Atbash Encode Decode Algorithm")
     void testAtbashEncodeDecode(String input, String output) {
-        assertThat(Task1.atbash(input)).isEqualTo(output);
+        assertThat(Task1.encryptViaAtbash(input)).isEqualTo(output);
     }
 }

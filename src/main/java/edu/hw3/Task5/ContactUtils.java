@@ -4,11 +4,27 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public final class ParseContacts {
+public final class ContactUtils {
     private static final String ASC = "ASC";
     private static final String DESC = "DESC";
 
-    private ParseContacts() {
+    private ContactUtils() {
+    }
+
+    public static String getFistNameFromFullName(String fullName) {
+        String[] splitted = fullName.split(" ");
+        if (splitted.length == 1) {
+            return "";
+        }
+        return splitted[0];
+    }
+
+    public static String getLastNameFromFullName(String fullName) {
+        String[] splitted = fullName.split(" ");
+        if (splitted.length == 1) {
+            return fullName;
+        }
+        return splitted[1];
     }
 
     public static Contact[] parseContacts(String[] contacts, String sortOrder) {

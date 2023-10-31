@@ -20,7 +20,8 @@ public class Stock implements Comparable<Stock> {
         return value;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }

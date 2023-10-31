@@ -2,24 +2,13 @@ package edu.hw3.Task5;
 
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
+import static edu.hw3.Task5.ContactUtils.getFistNameFromFullName;
+import static edu.hw3.Task5.ContactUtils.getLastNameFromFullName;
 
-public class Contact implements Comparable<Contact> {
-    private final String firstName;
-    private final String lastName;
+public record Contact(String firstName, String lastName) implements Comparable<Contact> {
 
     public Contact(String fullName) {
-        String[] splitted = splitFullName(fullName);
-        this.firstName = splitted[0];
-        this.lastName = splitted[1];
-
-    }
-
-    private String[] splitFullName(String fullName) {
-        String[] splitted = fullName.split(" ");
-        if (splitted.length == 1) {
-            return new String[] {"", fullName};
-        }
-        return splitted;
+        this(getFistNameFromFullName(fullName), getLastNameFromFullName(fullName));
     }
 
     public String getFirstName() {
