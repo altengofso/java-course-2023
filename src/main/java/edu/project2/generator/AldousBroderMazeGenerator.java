@@ -8,15 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class AldousBroderMazeGenerator extends AbstractMazeGenerator {
-    private final int[][] directions;
-    private static final int UPPER_BOUND = 2;
-    private static final int LOWER_BOUND = -2;
-    private static final int ZERO = 0;
-
-    public AldousBroderMazeGenerator() {
-        directions = new int[][] {{ZERO, UPPER_BOUND}, {UPPER_BOUND, ZERO}, {ZERO, LOWER_BOUND}, {LOWER_BOUND, ZERO}};
-    }
-
     @Override
     protected void applyGeneratorAlgorithm() {
         aldousBroderGeneratorAlgorithm();

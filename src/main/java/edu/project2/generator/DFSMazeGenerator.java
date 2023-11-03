@@ -9,17 +9,6 @@ import java.util.List;
 import java.util.Stack;
 
 public class DFSMazeGenerator extends AbstractMazeGenerator {
-    private final int[][] directions;
-    private final Stack<Coordinate> stack;
-    private static final int UPPER_BOUND = 2;
-    private static final int LOWER_BOUND = -2;
-    private static final int ZERO = 0;
-
-    public DFSMazeGenerator() {
-        directions = new int[][] {{ZERO, UPPER_BOUND}, {UPPER_BOUND, ZERO}, {ZERO, LOWER_BOUND}, {LOWER_BOUND, ZERO}};
-        stack = new Stack<>();
-    }
-
     @Override
     protected void applyGeneratorAlgorithm() {
         dfsGeneratorAlgorithm();
@@ -28,6 +17,7 @@ public class DFSMazeGenerator extends AbstractMazeGenerator {
     private void dfsGeneratorAlgorithm() {
         Coordinate startCoordinate = new Coordinate(1, 1);
         grid[1][1] = new Cell(startCoordinate, Cell.Type.PASSAGE);
+        Stack<Coordinate> stack = new Stack<>();
         stack.add(startCoordinate);
         while (!stack.empty()) {
             Coordinate current = stack.pop();
