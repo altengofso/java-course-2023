@@ -8,9 +8,9 @@ import java.util.List;
 public class MazeRenderer implements Renderer {
     private static final char WALL_SYMBOL = '⬛';
     private static final char PASSAGE_SYMBOL = '⬜';
-    private static final String START_SYMBOL = "\uD83D\uDD3A";
-    private static final String END_SYMBOL = "\uD83D\uDD3B";
-    private static final String PATH_SYMBOL = "\uD83D\uDFE2";
+    private static final String START_SYMBOL = "🔺";
+    private static final String END_SYMBOL = "🔻";
+    private static final String PATH_SYMBOL = "🟢";
     private static final char ENDLINE_SYMBOL = '\n';
 
     @Override
@@ -20,6 +20,7 @@ public class MazeRenderer implements Renderer {
 
     @Override
     public String render(Maze maze, List<Coordinate> path) {
+        START_SYMBOL.codePoints();
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < maze.getHeight(); ++i) {
             for (int j = 0; j < maze.getWidth(); ++j) {
