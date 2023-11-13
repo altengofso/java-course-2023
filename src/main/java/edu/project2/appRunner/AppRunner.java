@@ -8,13 +8,10 @@ import edu.project2.session.Message;
 import edu.project2.session.Session;
 import edu.project2.session.SessionState;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 public class AppRunner {
-    public void runApp()
-        throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException,
-        IllegalAccessException {
+    public void runApp() {
         InputReader inputReader = new InputReaderCli(new Scanner(System.in));
         OutputWriter outputWriter = new OutputWriterCli(new PrintWriter(System.out));
         Session session = new Session();
@@ -23,7 +20,6 @@ public class AppRunner {
         while (!session.getState().equals(SessionState.QUIT)) {
             String input = inputReader.read();
             printMessage(session.processUserAction(input), outputWriter);
-
         }
         inputReader.close();
         outputWriter.close();

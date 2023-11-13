@@ -18,7 +18,7 @@ public sealed interface Message {
                 ███   ███   ███   ███    ███ ███▄     ▄█   ███    ███\s
                  ▀█   ███   █▀    ███    █▀   ▀████████▀   ██████████\s
                                                                      \s
-                Generate and solve maze by with selected algorithms. \s
+                Generate and solve maze with selected algorithms.    \s
                                                                      \s"""
             );
         }

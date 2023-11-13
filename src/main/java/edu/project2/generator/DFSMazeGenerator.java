@@ -10,11 +10,13 @@ import java.util.Stack;
 
 public class DFSMazeGenerator extends AbstractMazeGenerator {
     @Override
-    protected void applyGeneratorAlgorithm() {
-        dfsGeneratorAlgorithm();
+    protected void applyGeneratorAlgorithm(Cell[][] grid) {
+        dfsGeneratorAlgorithm(grid);
     }
 
-    private void dfsGeneratorAlgorithm() {
+    private void dfsGeneratorAlgorithm(Cell[][] grid) {
+        int height = grid.length;
+        int width = grid[0].length;
         Coordinate startCoordinate = new Coordinate(1, 1);
         grid[1][1] = new Cell(startCoordinate, Cell.Type.PASSAGE);
         Stack<Coordinate> stack = new Stack<>();

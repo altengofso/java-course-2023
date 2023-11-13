@@ -1,6 +1,5 @@
 package edu.project2.generator;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -15,17 +14,15 @@ public class GeneratorsUtilsTest {
 
     static Stream<Arguments> GetGenerator() {
         return Stream.of(
-            Arguments.of(Generators.DFSMazeGenerator, "DFSMazeGenerator"),
-            Arguments.of(Generators.AldousBroderMazeGenerator, "AldousBroderMazeGenerator")
+            Arguments.of(DFSMazeGenerator.class, 1),
+            Arguments.of(AldousBroderMazeGenerator.class, 2)
         );
     }
 
     @ParameterizedTest
     @MethodSource("GetGenerator")
-    void testGetGenerator(Generators generator, String name)
-        throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException,
-        IllegalAccessException {
-        assertThat(getGenerator(generator).getClass().getSimpleName()).isEqualTo(name);
+    void testGetGenerator(Object cls, int generatorCode) {
+        assertThat(getGenerator(generatorCode).getClass()).isEqualTo(cls);
     }
 
     @Test

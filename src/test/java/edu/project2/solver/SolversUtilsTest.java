@@ -1,6 +1,5 @@
 package edu.project2.solver;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -15,17 +14,15 @@ public class SolversUtilsTest {
 
     static Stream<Arguments> GetSolver() {
         return Stream.of(
-            Arguments.of(Solvers.DFSMazeSolver, "DFSMazeSolver"),
-            Arguments.of(Solvers.BFSMazeSolver, "BFSMazeSolver")
+            Arguments.of(DFSMazeSolver.class, 1),
+            Arguments.of(BFSMazeSolver.class, 2)
         );
     }
 
     @ParameterizedTest
     @MethodSource("GetSolver")
-    void testGetSolver(Solvers solver, String name)
-        throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException,
-        IllegalAccessException {
-        assertThat(getSolver(solver).getClass().getSimpleName()).isEqualTo(name);
+    void testGetSolver(Object cls, int solverCode) {
+        assertThat(getSolver(solverCode).getClass()).isEqualTo(cls);
     }
 
     @Test

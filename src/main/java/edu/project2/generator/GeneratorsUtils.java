@@ -1,13 +1,12 @@
 package edu.project2.generator;
 
-import java.lang.reflect.InvocationTargetException;
-
 public final class GeneratorsUtils {
-    public static Generator getGenerator(Generators generator)
-        throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException,
-        IllegalAccessException {
-        Class<?> cls = Class.forName(generator.getFullName());
-        return (Generator) cls.getDeclaredConstructor().newInstance();
+    public static Generator getGenerator(int generatorCode) {
+        return switch (generatorCode) {
+            case 1 -> new DFSMazeGenerator();
+            case 2 -> new AldousBroderMazeGenerator();
+            default -> null;
+        };
     }
 
     public static String getGeneratorsList() {

@@ -1,13 +1,12 @@
 package edu.project2.solver;
 
-import java.lang.reflect.InvocationTargetException;
-
 public final class SolversUtils {
-    public static Solver getSolver(Solvers solver)
-        throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException,
-        IllegalAccessException {
-        Class<?> cls = Class.forName(solver.getFullName());
-        return (Solver) cls.getDeclaredConstructor().newInstance();
+    public static Solver getSolver(int solverCode) {
+        return switch (solverCode) {
+            case 1 -> new DFSMazeSolver();
+            case 2 -> new BFSMazeSolver();
+            default -> null;
+        };
     }
 
     public static String getSolversList() {

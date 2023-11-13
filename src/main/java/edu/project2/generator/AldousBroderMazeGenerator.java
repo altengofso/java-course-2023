@@ -9,11 +9,13 @@ import java.util.List;
 
 public class AldousBroderMazeGenerator extends AbstractMazeGenerator {
     @Override
-    protected void applyGeneratorAlgorithm() {
-        aldousBroderGeneratorAlgorithm();
+    protected void applyGeneratorAlgorithm(Cell[][] grid) {
+        aldousBroderGeneratorAlgorithm(grid);
     }
 
-    private void aldousBroderGeneratorAlgorithm() {
+    private void aldousBroderGeneratorAlgorithm(Cell[][] grid) {
+        int height = grid.length;
+        int width = grid[0].length;
         int neededAmount = (height - 1) / 2 * (width - 1) / 2;
         int currentAmount = 1;
         Coordinate current = new Coordinate(1, 1);

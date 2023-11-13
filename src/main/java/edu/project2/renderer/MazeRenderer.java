@@ -20,7 +20,6 @@ public class MazeRenderer implements Renderer {
 
     @Override
     public String render(Maze maze, List<Coordinate> path) {
-        START_SYMBOL.codePoints();
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < maze.getHeight(); ++i) {
             for (int j = 0; j < maze.getWidth(); ++j) {

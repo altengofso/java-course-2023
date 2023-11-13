@@ -2,7 +2,6 @@ package edu.project2.solver;
 
 import edu.project2.generator.Generators;
 import edu.project2.maze.Coordinate;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -29,11 +28,9 @@ public class SolversTest {
 
     @ParameterizedTest
     @MethodSource("Solve")
-    void testSolve(Solvers solver, Generators generator, int height, int width, Coordinate start, Coordinate end)
-        throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException,
-        IllegalAccessException {
-        var currentGenerator = getGenerator(generator);
-        var currentSolver = getSolver(solver);
+    void testSolve(Solvers solver, Generators generator, int height, int width, Coordinate start, Coordinate end) {
+        var currentGenerator = getGenerator(generator.getCode());
+        var currentSolver = getSolver(solver.getCode());
         var maze = currentGenerator.generate(height, width);
         var path = currentSolver.solve(maze, start, end);
         assertThat(path != null).isTrue();

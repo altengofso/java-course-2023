@@ -1,14 +1,11 @@
 package edu.project2.session;
 
-import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SessionTest {
     @Test
-    void testSession()
-        throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException,
-        IllegalAccessException {
+    void testSession() {
         Session session = new Session();
         assertThat(session.getState()).isEqualTo(SessionState.INTRO);
         session.processUserAction("");

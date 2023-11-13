@@ -1,19 +1,19 @@
 package edu.project2.solver;
 
 public enum Solvers {
-    DFSMazeSolver("edu.project2.solver.DFSMazeSolver", "DFSMazeSolver"),
-    BFSMazeSolver("edu.project2.solver.BFSMazeSolver", "BFSMazeSolver");
+    DFSMazeSolver(1, DFSMazeSolver.class.getSimpleName()),
+    BFSMazeSolver(2, BFSMazeSolver.class.getSimpleName());
 
-    private final String fullName;
+    private final int code;
     private final String displayName;
 
-    Solvers(String fullName, String displayName) {
-        this.fullName = fullName;
+    Solvers(int code, String displayName) {
+        this.code = code;
         this.displayName = displayName;
     }
 
-    public String getFullName() {
-        return fullName;
+    public int getCode() {
+        return code;
     }
 
     public String getDisplayName() {

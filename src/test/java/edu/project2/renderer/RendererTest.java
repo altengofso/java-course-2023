@@ -3,7 +3,6 @@ package edu.project2.renderer;
 import edu.project2.generator.Generators;
 import edu.project2.maze.Coordinate;
 import edu.project2.solver.Solvers;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -67,12 +66,10 @@ public class RendererTest {
         Coordinate end,
         String generated,
         String solved
-    )
-        throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException,
-        IllegalAccessException {
+    ) {
         var renderer = new MazeRenderer();
-        var currentGenerator = getGenerator(generator);
-        var currentSolver = getSolver(solver);
+        var currentGenerator = getGenerator(generator.getCode());
+        var currentSolver = getSolver(solver.getCode());
         var maze = currentGenerator.generate(height, width);
         var path = currentSolver.solve(maze, start, end);
         var currentGenerated = renderer.render(maze);
