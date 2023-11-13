@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import static edu.hw5.Task1.averageSessionTime;
+import static edu.hw5.Task1.calculateAverageSessionTime;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,11 +27,11 @@ public class Task1Test {
     @ParameterizedTest
     @MethodSource("AverageSessionTime")
     void testAverageSessionTime(List<String> sessions, String averageDuration) {
-        assertThat(averageSessionTime(sessions)).isEqualTo(averageDuration);
+        assertThat(calculateAverageSessionTime(sessions)).isEqualTo(averageDuration);
     }
 
     @Test
     void testAverageSessionTimeException() {
-        assertThrows(IllegalArgumentException.class, () -> averageSessionTime(List.of("123 - 123")));
+        assertThrows(IllegalArgumentException.class, () -> calculateAverageSessionTime(List.of("123 - 123")));
     }
 }
