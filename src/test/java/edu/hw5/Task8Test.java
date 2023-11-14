@@ -4,13 +4,13 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import static edu.hw5.Task8.isEveryEvenEqualsOne;
+import static edu.hw5.Task8.isEveryOddEqualsOne;
 import static edu.hw5.Task8.isOddLength;
 import static edu.hw5.Task8.isZeroOddLengthOrOneEvenLength;
 import static edu.hw5.Task8.isZerosMultipleOfThree;
 import static edu.hw5.Task8.isZerosTwoAndMoreOnesNotMoreOne;
-import static edu.hw5.Task8.noConsecutiveOnes;
-import static edu.hw5.Task8.notEquals11Or111;
+import static edu.hw5.Task8.isNoConsecutiveOnes;
+import static edu.hw5.Task8.isNotEquals11Or111;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task8Test {
@@ -75,7 +75,7 @@ public class Task8Test {
         assertThat(isZerosMultipleOfThree(string)).isEqualTo(result);
     }
 
-    static Stream<Arguments> NotEquals11Or111() {
+    static Stream<Arguments> IsNotEquals11Or111() {
         return Stream.of(
             Arguments.of("", true),
             Arguments.of("1", true),
@@ -91,12 +91,12 @@ public class Task8Test {
     }
 
     @ParameterizedTest
-    @MethodSource("NotEquals11Or111")
-    void testNotEquals11Or111(String string, boolean result) {
-        assertThat(notEquals11Or111(string)).isEqualTo(result);
+    @MethodSource("IsNotEquals11Or111")
+    void testIsNotEquals11Or111(String string, boolean result) {
+        assertThat(isNotEquals11Or111(string)).isEqualTo(result);
     }
 
-    static Stream<Arguments> IsEveryEvenEqualsOne() {
+    static Stream<Arguments> IsEveryOddEqualsOne() {
         return Stream.of(
             Arguments.of("", false),
             Arguments.of("1", true),
@@ -110,9 +110,9 @@ public class Task8Test {
     }
 
     @ParameterizedTest
-    @MethodSource("IsEveryEvenEqualsOne")
-    void testIsEveryEvenEqualsOne(String string, boolean result) {
-        assertThat(isEveryEvenEqualsOne(string)).isEqualTo(result);
+    @MethodSource("IsEveryOddEqualsOne")
+    void testIsEveryOddEqualsOne(String string, boolean result) {
+        assertThat(isEveryOddEqualsOne(string)).isEqualTo(result);
     }
 
     static Stream<Arguments> IsZerosTwoAndMoreOnesNotMoreOne() {
@@ -139,7 +139,7 @@ public class Task8Test {
         assertThat(isZerosTwoAndMoreOnesNotMoreOne(string)).isEqualTo(result);
     }
 
-    static Stream<Arguments> NoConsecutiveOnes() {
+    static Stream<Arguments> IsNoConsecutiveOnes() {
         return Stream.of(
             Arguments.of("", true),
             Arguments.of("1", true),
@@ -155,8 +155,8 @@ public class Task8Test {
     }
 
     @ParameterizedTest
-    @MethodSource("NoConsecutiveOnes")
-    void testNoConsecutiveOnes(String string, boolean result) {
-        assertThat(noConsecutiveOnes(string)).isEqualTo(result);
+    @MethodSource("IsNoConsecutiveOnes")
+    void testIsNoConsecutiveOnes(String string, boolean result) {
+        assertThat(isNoConsecutiveOnes(string)).isEqualTo(result);
     }
 }

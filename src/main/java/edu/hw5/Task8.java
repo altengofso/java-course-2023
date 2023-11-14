@@ -14,11 +14,11 @@ public final class Task8 {
         return string.matches("^(?:1*01*01*01*)+$");
     }
 
-    public static boolean notEquals11Or111(String string) {
+    public static boolean isNotEquals11Or111(String string) {
         return string.matches("^$|^[01]$|^[01]{2}(?<!11)$|^[01]{3}(?<!111)$|^[01]{4,}$");
     }
 
-    public static boolean isEveryEvenEqualsOne(String string) {
+    public static boolean isEveryOddEqualsOne(String string) {
         return string.matches("^1(?:[01]1)*[01]?$");
     }
 
@@ -26,7 +26,7 @@ public final class Task8 {
         return string.matches("^00+10*$|^0*100+$|^0+10+$|^00+$");
     }
 
-    public static boolean noConsecutiveOnes(String string) {
+    public static boolean isNoConsecutiveOnes(String string) {
         return string.matches("^[01]*(?<!11)$");
     }
 
