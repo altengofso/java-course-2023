@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RequestResourceStatisticCollector implements StatisticCollector {
-
     @Override
     public StatisticTable collect(List<LogRecord> logs) {
         StatisticTable statisticTable =

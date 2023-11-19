@@ -13,7 +13,6 @@ public class ReportPrinterCLI implements ReportPrinter {
     public void print(String report) {
         printWriter.write(report);
         printWriter.flush();
-
     }
 
     @Override

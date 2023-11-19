@@ -28,8 +28,7 @@ public class AppRunner {
             new UserAgentStatisticCollector()
         );
         List<StatisticTable> statisticTables = new ArrayList<>();
-        for (
-            var statisticCollector : statisticCollectors) {
+        for (var statisticCollector : statisticCollectors) {
             statisticTables.add(statisticCollector.collect(logRecords));
         }
 

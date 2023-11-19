@@ -54,11 +54,9 @@ public class TestStatisticsReporting {
             new UserAgentStatisticCollector()
         );
         List<StatisticTable> statisticTables = new ArrayList<>();
-        for (
-            var statisticCollector : statisticCollectors) {
+        for (var statisticCollector : statisticCollectors) {
             statisticTables.add(statisticCollector.collect(logRecords));
         }
-
         ReportBuilder reportBuilder = ReportBuilderFactory.getReportBuilder(Format.MARKDOWN);
         assertThat(reportBuilder.build(statisticTables)).isEqualTo("""
             ### General Info
@@ -113,11 +111,9 @@ public class TestStatisticsReporting {
             new UserAgentStatisticCollector()
         );
         List<StatisticTable> statisticTables = new ArrayList<>();
-        for (
-            var statisticCollector : statisticCollectors) {
+        for (var statisticCollector : statisticCollectors) {
             statisticTables.add(statisticCollector.collect(logRecords));
         }
-
         ReportBuilder reportBuilder = ReportBuilderFactory.getReportBuilder(Format.ADOC);
         assertThat(reportBuilder.build(statisticTables)).isEqualTo("""
             === General Info
