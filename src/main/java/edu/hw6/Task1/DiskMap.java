@@ -45,8 +45,8 @@ public class DiskMap implements Map<String, String> {
         StringBuilder fileContent = new StringBuilder();
         ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
         try (FileInputStream fileInputStream = new FileInputStream(fileName);
-             FileChannel fileChannel = fileInputStream.getChannel()) {
-            FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
+             FileChannel fileChannel = fileInputStream.getChannel();
+             FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true)) {
             while (fileChannel.read(buffer) != -1) {
                 buffer.flip();
                 byte[] chunk = new byte[buffer.limit()];
@@ -54,7 +54,6 @@ public class DiskMap implements Map<String, String> {
                 fileContent.append(new String(chunk, StandardCharsets.UTF_8));
                 buffer.clear();
             }
-            lock.release();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -90,8 +89,8 @@ public class DiskMap implements Map<String, String> {
 
     private void writeFileWithLock(String content) {
         try (FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-             FileChannel fileChannel = fileOutputStream.getChannel()) {
-            FileLock lock = fileChannel.lock();
+             FileChannel fileChannel = fileOutputStream.getChannel();
+             FileLock lock = fileChannel.lock()) {
             byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
             ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
             int bytesWritten = 0;
@@ -104,7 +103,6 @@ public class DiskMap implements Map<String, String> {
                 fileChannel.write(buffer);
                 bytesWritten += chunkSize;
             }
-            lock.release();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
