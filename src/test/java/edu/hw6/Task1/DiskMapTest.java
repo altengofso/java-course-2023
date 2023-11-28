@@ -3,10 +3,12 @@ package edu.hw6.Task1;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DiskMapTest {
+
     @Test
     void testDiskMap() throws IOException {
         DiskMap diskMap = new DiskMap("DiskMapTest.txt");
@@ -22,6 +24,10 @@ public class DiskMapTest {
         assertThat(anotherDiskMap.containsValue("value2")).isTrue();
         diskMap.clear();
         assertThat(diskMap.isEmpty()).isTrue();
+    }
+
+    @AfterAll
+    static void deleteTempFile() throws IOException {
         Files.delete(Path.of("DiskMapTest.txt"));
     }
 }

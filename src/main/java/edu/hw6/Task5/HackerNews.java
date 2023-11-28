@@ -1,6 +1,5 @@
 package edu.hw6.Task5;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,21 +16,17 @@ public class HackerNews {
     }
 
     public long[] hackerNewsTopStories() {
-        try {
-            String response = httpClient.getResponse(BASE_URL + TOP_STORIES);
-            return Arrays
-                .stream(response
-                    .substring(1, response.length() - 1)
-                    .split(","))
-                .mapToLong(Long::parseLong)
-                .toArray();
-        } catch (IOException | InterruptedException e) {
-            return new long[] {};
-        }
+        String response = httpClient.get(BASE_URL + TOP_STORIES);
+        return Arrays
+            .stream(response
+                .substring(1, response.length() - 1)
+                .split(","))
+            .mapToLong(Long::parseLong)
+            .toArray();
     }
 
-    public String news(long id) throws IOException, InterruptedException {
-        String response = httpClient.getResponse(BASE_URL + NEWS_ITEM.formatted(id));
+    public String news(long id) {
+        String response = httpClient.get(BASE_URL + NEWS_ITEM.formatted(id));
         Pattern pattern = Pattern.compile(NEWS_ITEM_PATTERN);
         Matcher matcher = pattern.matcher(response);
         if (matcher.find()) {

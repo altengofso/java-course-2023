@@ -1,19 +1,21 @@
 package edu.hw6.Task1;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class DiskMap implements Map<String, String> {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final int BUFFER_SIZE = 1024;
     private final String fileName;
     private final Map<String, String> inMemoryMap;
 
@@ -24,31 +26,87 @@ public class DiskMap implements Map<String, String> {
     }
 
     private void loadFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                String[] keyValue = line.split(":");
-                if (keyValue.length == 2) {
-                    String key = keyValue[0];
-                    String value = keyValue[1];
-                    inMemoryMap.put(key, value);
-                }
+        createDiskMapFileIfNotExists();
+        String fileContent = readFileWithLock();
+        loadInMemoryMapFromFileContent(fileContent);
+    }
+
+    private void createDiskMapFileIfNotExists() {
+        if (!Files.exists(Path.of(fileName))) {
+            try {
+                Files.createFile(Path.of(fileName));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+        }
+    }
+
+    private String readFileWithLock() {
+        StringBuilder fileContent = new StringBuilder();
+        ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
+        try (FileInputStream fileInputStream = new FileInputStream(fileName);
+             FileChannel fileChannel = fileInputStream.getChannel()) {
+            FileLock lock = fileChannel.lock(0, Long.MAX_VALUE, true);
+            while (fileChannel.read(buffer) != -1) {
+                buffer.flip();
+                byte[] chunk = new byte[buffer.limit()];
+                buffer.get(chunk);
+                fileContent.append(new String(chunk, StandardCharsets.UTF_8));
+                buffer.clear();
+            }
+            lock.release();
         } catch (IOException e) {
-            LOGGER.info("Error occurred while loading data from file: %s".formatted(e.getMessage()));
+            throw new RuntimeException(e);
+        }
+        return fileContent.toString();
+    }
+
+    private void loadInMemoryMapFromFileContent(String fileContent) {
+        String[] lines = fileContent.split("\n");
+        for (String line : lines) {
+            String[] keyValue = line.split(":");
+            if (keyValue.length == 2) {
+                String key = keyValue[0].trim();
+                String value = keyValue[1].trim();
+                inMemoryMap.put(key, value);
+            }
         }
     }
 
     private void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (var entry : inMemoryMap.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
-                writer.write(key + ":" + value);
-                writer.newLine();
+        String content = convertInMemoryMapToString();
+        writeFileWithLock(content);
+    }
+
+    private String convertInMemoryMapToString() {
+        StringBuilder content = new StringBuilder();
+        for (var entry : inMemoryMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            content.append("%s:%s\n".formatted(key, value));
+        }
+        return content.toString();
+    }
+
+    private void writeFileWithLock(String content) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+             FileChannel fileChannel = fileOutputStream.getChannel()) {
+            FileLock lock = fileChannel.lock();
+            byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
+            ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
+            int bytesWritten = 0;
+            while (bytesWritten < contentBytes.length) {
+                int remainingBytes = contentBytes.length - bytesWritten;
+                int chunkSize = Math.min(BUFFER_SIZE, remainingBytes);
+                buffer.clear();
+                buffer.put(contentBytes, bytesWritten, chunkSize);
+                buffer.flip();
+                fileChannel.write(buffer);
+                bytesWritten += chunkSize;
             }
+            lock.release();
         } catch (IOException e) {
-            LOGGER.info("Error occurred while saving data to file: %s".formatted(e.getMessage()));
+            throw new RuntimeException(e);
         }
     }
 
