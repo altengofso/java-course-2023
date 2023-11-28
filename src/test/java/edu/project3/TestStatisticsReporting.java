@@ -2,7 +2,7 @@ package edu.project3;
 
 import edu.project3.arguments.Arguments;
 import edu.project3.logs.parser.LogParser;
-import edu.project3.models.reports.Format;
+import edu.project3.models.reports.ReportFormat;
 import edu.project3.models.statistics.StatisticTable;
 import edu.project3.reports.builder.ReportBuilder;
 import edu.project3.reports.builder.ReportBuilderFactory;
@@ -57,7 +57,7 @@ public class TestStatisticsReporting {
         for (var statisticCollector : statisticCollectors) {
             statisticTables.add(statisticCollector.collect(logRecords));
         }
-        ReportBuilder reportBuilder = ReportBuilderFactory.getReportBuilder(Format.MARKDOWN);
+        ReportBuilder reportBuilder = ReportBuilderFactory.getReportBuilder(ReportFormat.MARKDOWN);
         assertThat(reportBuilder.build(statisticTables)).isEqualTo("""
             ### General Info
             |Metric|Value|
@@ -114,7 +114,7 @@ public class TestStatisticsReporting {
         for (var statisticCollector : statisticCollectors) {
             statisticTables.add(statisticCollector.collect(logRecords));
         }
-        ReportBuilder reportBuilder = ReportBuilderFactory.getReportBuilder(Format.ADOC);
+        ReportBuilder reportBuilder = ReportBuilderFactory.getReportBuilder(ReportFormat.ADOC);
         assertThat(reportBuilder.build(statisticTables)).isEqualTo("""
             === General Info
             |====

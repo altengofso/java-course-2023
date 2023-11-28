@@ -15,8 +15,10 @@ import edu.project3.statistics.collector.StatusCodeStatisticCollector;
 import edu.project3.statistics.collector.UserAgentStatisticCollector;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.SneakyThrows;
 
 public class AppRunner {
+    @SneakyThrows
     public void run(String[] args) {
         Arguments arguments = new Arguments(args);
         var logRecords = LogParser.parseLog(arguments.getPaths(), arguments.getFrom(), arguments.getTo());
@@ -31,13 +33,9 @@ public class AppRunner {
         for (var statisticCollector : statisticCollectors) {
             statisticTables.add(statisticCollector.collect(logRecords));
         }
-
         ReportBuilder reportBuilder = ReportBuilderFactory.getReportBuilder(arguments.getFormat());
         try (ReportPrinter reportPrinter = new ReportPrinterCLI()) {
             reportPrinter.print(reportBuilder.build(statisticTables));
-        } catch (
-            Exception e) {
-            throw new RuntimeException(e);
         }
     }
 }

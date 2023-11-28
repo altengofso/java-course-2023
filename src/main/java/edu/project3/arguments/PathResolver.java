@@ -1,7 +1,6 @@
 package edu.project3.arguments;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -11,6 +10,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.SneakyThrows;
 
 public final class PathResolver {
     private PathResolver() {
@@ -23,24 +23,21 @@ public final class PathResolver {
         return getAllPaths(path);
     }
 
+    @SneakyThrows
     private static List<String> getAllPaths(String path) {
         List<String> paths = new ArrayList<>();
         Path start = getStartPath(path);
         String pattern = "glob:" + path.replaceAll("\\\\", "/");
         PathMatcher matcher = FileSystems.getDefault().getPathMatcher(pattern);
-        try {
-            Files.walkFileTree(start, new SimpleFileVisitor<>() {
-                @Override
-                public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
-                    if (matcher.matches(path)) {
-                        paths.add(path.toString());
-                    }
-                    return FileVisitResult.CONTINUE;
+        Files.walkFileTree(start, new SimpleFileVisitor<>() {
+            @Override
+            public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
+                if (matcher.matches(path)) {
+                    paths.add(path.toString());
                 }
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                return FileVisitResult.CONTINUE;
+            }
+        });
         return paths;
     }
 

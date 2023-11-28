@@ -1,9 +1,9 @@
 package edu.project3.logs.reader;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import lombok.SneakyThrows;
 
 public class LogReaderDisk implements LogReader {
     @Override
@@ -11,11 +11,8 @@ public class LogReaderDisk implements LogReader {
         return readFromDisk(path);
     }
 
+    @SneakyThrows
     private List<String> readFromDisk(String path) {
-        try {
-            return Files.readAllLines(Path.of(path));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return Files.readAllLines(Path.of(path));
     }
 }

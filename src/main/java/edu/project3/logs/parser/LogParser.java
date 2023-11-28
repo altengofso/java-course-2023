@@ -14,11 +14,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public final class LogParser {
-    private LogParser() {
-    }
-
+    private static final DateTimeFormatter FORMATTER =
+        DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH);
     private static final Pattern LOG_PATTERN = Pattern.compile("(?<remoteAddress>.*) - "
         + "(?<remoteUser>.*) "
         + "\\[(?<timeLocal>.*)\\] "
@@ -47,26 +48,24 @@ public final class LogParser {
 
     private static LogRecord parseLogString(String log) {
         Matcher matcher = LOG_PATTERN.matcher(log);
-        if (matcher.matches()) {
-            return new LogRecord(
-                matcher.group("remoteAddress"),
-                matcher.group("remoteUser"),
-                parseTimeLocal(matcher.group("timeLocal")),
-                HttpMethod.valueOf(matcher.group("method").toUpperCase()),
-                matcher.group("request"),
-                matcher.group("protocol"),
-                HttpStatusCode.getByStatusCode(Integer.parseInt(matcher.group("status"))),
-                Long.parseLong(matcher.group("bodyBytesSent")),
-                matcher.group("httpReferer"),
-                matcher.group("httpUserAgent")
-            );
-        } else {
+        if (!matcher.matches()) {
             throw new LogFormatException("Wrong log format.");
         }
+        return new LogRecord(
+            matcher.group("remoteAddress"),
+            matcher.group("remoteUser"),
+            parseTimeLocal(matcher.group("timeLocal")),
+            HttpMethod.valueOf(matcher.group("method").toUpperCase()),
+            matcher.group("request"),
+            matcher.group("protocol"),
+            HttpStatusCode.getByStatusCode(Integer.parseInt(matcher.group("status"))),
+            Long.parseLong(matcher.group("bodyBytesSent")),
+            matcher.group("httpReferer"),
+            matcher.group("httpUserAgent")
+        );
     }
 
     private static OffsetDateTime parseTimeLocal(String timeLocal) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH);
-        return OffsetDateTime.parse(timeLocal, formatter);
+        return OffsetDateTime.parse(timeLocal, FORMATTER);
     }
 }

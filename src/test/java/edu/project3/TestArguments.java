@@ -2,7 +2,7 @@ package edu.project3;
 
 import edu.project3.arguments.Arguments;
 import edu.project3.arguments.FileResolver;
-import edu.project3.models.reports.Format;
+import edu.project3.models.reports.ReportFormat;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,7 +31,7 @@ public class TestArguments {
         assertThat(arguments.getPaths()).isEqualTo(List.of(LOGFILE));
         assertThat(arguments.getFrom()).isEqualTo(LocalDate.parse("2023-08-01"));
         assertThat(arguments.getTo()).isEqualTo(LocalDate.parse("2023-08-31"));
-        assertThat(arguments.getFormat()).isEqualTo(Format.ADOC);
+        assertThat(arguments.getFormat()).isEqualTo(ReportFormat.ADOC);
     }
 
     @Test
