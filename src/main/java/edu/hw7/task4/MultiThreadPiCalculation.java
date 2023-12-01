@@ -1,11 +1,13 @@
-package edu.hw7.Task4;
+package edu.hw7.task4;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.SneakyThrows;
 
 public final class MultiThreadPiCalculation {
     private MultiThreadPiCalculation() {
     }
 
+    @SneakyThrows
     public static double calculatePI(int simulations, int threadsNumber) {
         AtomicInteger circleCount = new AtomicInteger(0);
         PiCalculationThread[] threads = new PiCalculationThread[threadsNumber];
@@ -14,11 +16,7 @@ public final class MultiThreadPiCalculation {
             threads[i].start();
         }
         for (var thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            thread.join();
         }
         return 2 * 2 * ((double) circleCount.get() / simulations);
     }

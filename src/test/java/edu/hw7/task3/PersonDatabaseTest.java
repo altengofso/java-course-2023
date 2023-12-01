@@ -1,4 +1,4 @@
-package edu.hw7.Task3;
+package edu.hw7.task3;
 
 import java.util.List;
 import java.util.stream.Stream;

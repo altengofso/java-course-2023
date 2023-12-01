@@ -1,4 +1,4 @@
-package edu.hw7.Task4;
+package edu.hw7.task4;
 
 import java.util.Random;
 

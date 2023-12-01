@@ -1,4 +1,4 @@
-package edu.hw7.Task2;
+package edu.hw7.task2;
 
 import java.util.stream.LongStream;
 

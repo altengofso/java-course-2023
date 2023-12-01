@@ -1,4 +1,4 @@
-package edu.hw7.Task4;
+package edu.hw7.task4;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

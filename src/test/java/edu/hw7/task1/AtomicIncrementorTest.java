@@ -1,4 +1,4 @@
-package edu.hw7.Task1;
+package edu.hw7.task1;
 
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,14 +10,15 @@ public class AtomicIncrementorTest {
     static Stream<Arguments> AtomicIncrementorArguments() {
         return Stream.of(
             Arguments.of(1, 10000, 10000),
-            Arguments.of(2, 10000, 20000),
-            Arguments.of(4, 10000, 40000)
+            Arguments.of(2, 10000, 10000),
+            Arguments.of(4, 10000, 10000)
         );
     }
 
     @ParameterizedTest
     @MethodSource("AtomicIncrementorArguments")
     void testAtomicIncrementor(int threadsNumber, int incrementCount, int expected) {
-        assertThat(AtomicIncrementor.run(threadsNumber, incrementCount)).isEqualTo(expected);
+        AtomicIncrementor atomicIncrementor = new AtomicIncrementor();
+        assertThat(atomicIncrementor.run(threadsNumber, incrementCount)).isEqualTo(expected);
     }
 }

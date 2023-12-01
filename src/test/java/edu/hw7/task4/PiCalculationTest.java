@@ -1,4 +1,4 @@
-package edu.hw7.Task4;
+package edu.hw7.task4;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
