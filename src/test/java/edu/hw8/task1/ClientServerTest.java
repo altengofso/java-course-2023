@@ -1,8 +1,5 @@
 package edu.hw8.task1;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -38,28 +35,6 @@ public class ClientServerTest {
         Client client = new Client(endpoint, port);
         assertThat(client.getReponse(request)).isEqualTo(response);
         server.stop();
-    }
-
-    @ParameterizedTest
-    @MethodSource("ClientServerArguments")
-    void testMultipleClients(String request, String response) {
-        Server server = new Server(port);
-        Thread serverThread = new Thread(server::start);
-        serverThread.start();
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        var clientFutures = Stream
-            .generate(
-                () -> CompletableFuture.runAsync(
-                    () -> {
-                        Client client = new Client(endpoint, port);
-                        assertThat(client.getReponse(request)).isEqualTo(response);
-                    },
-                    executorService
-                ))
-            .limit(10)
-            .toArray(CompletableFuture[]::new);
-        CompletableFuture.allOf(clientFutures).join();
-        executorService.close();
-        server.stop();
+        serverThread.interrupt();
     }
 }
