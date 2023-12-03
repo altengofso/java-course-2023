@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ClientServerTest {
     private final String endpoint = "localhost";
-    private final int port = 12345;
+    private final int port = 8080;
 
     static Stream<Arguments> ClientServerArguments() {
         return Stream.of(
