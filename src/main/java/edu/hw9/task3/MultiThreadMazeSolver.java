@@ -5,9 +5,11 @@ import edu.project2.maze.Maze;
 import edu.project2.solver.AbstractMazeSolver;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -15,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import lombok.SneakyThrows;
 
 public class MultiThreadMazeSolver extends AbstractMazeSolver {
-    private final BlockingQueue<List<Coordinate>> queue = new LinkedBlockingQueue<>();
+    private final Queue<List<Coordinate>> queue = new ConcurrentLinkedQueue<>();
     private final Set<Coordinate> visited = ConcurrentHashMap.newKeySet();
     private final AtomicBoolean isPathFound = new AtomicBoolean(false);
     private List<Coordinate> path;
@@ -25,7 +27,7 @@ public class MultiThreadMazeSolver extends AbstractMazeSolver {
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
         List<Coordinate> coordinateList = new ArrayList<>();
         coordinateList.add(start);
-        queue.put(coordinateList);
+        queue.offer(coordinateList);
         visited.add(start);
         try (ExecutorService executorService =
                  Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
@@ -50,7 +52,7 @@ public class MultiThreadMazeSolver extends AbstractMazeSolver {
                 visited.add(target);
                 List<Coordinate> newPath = new ArrayList<>(List.copyOf(currentPath));
                 newPath.add(target);
-                queue.put(newPath);
+                queue.offer(newPath);
             }
         }
     }
