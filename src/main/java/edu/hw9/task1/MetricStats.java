@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 public class MetricStats {
     private final String name;
-    private volatile double sum;
-    private volatile double min;
-    private volatile double max;
-    private volatile double avg;
+    private AtomicDouble sum;
+    private AtomicDouble min;
+    private AtomicDouble max;
+    private AtomicDouble avg;
 
     public MetricStats(String name, double[] values) {
         this.name = name;
@@ -18,10 +18,10 @@ public class MetricStats {
 
     public MetricStats(String name, double sum, double min, double max, double avg) {
         this.name = name;
-        this.sum = sum;
-        this.min = min;
-        this.max = max;
-        this.avg = avg;
+        this.sum = new AtomicDouble(sum);
+        this.min = new AtomicDouble(min);
+        this.max = new AtomicDouble(max);
+        this.avg = new AtomicDouble(avg);
     }
 
     private void calculateStats(double[] values) {
@@ -35,21 +35,20 @@ public class MetricStats {
         }
         double currentAvg = currentSum / values.length;
 
-        this.sum = currentSum;
-        this.min = currentMin;
-        this.max = currentMax;
-        this.avg = currentAvg;
+        this.sum = new AtomicDouble(currentSum);
+        this.min = new AtomicDouble(currentMin);
+        this.max = new AtomicDouble(currentMax);
+        this.avg = new AtomicDouble(currentAvg);
     }
 
     public synchronized void updateStats(MetricStats update) {
-        this.sum += update.getSum();
-        this.max = Math.max(this.max, update.getMax());
-        this.min = Math.min(this.min, update.getMin());
-        this.avg = (this.avg + update.getAvg()) / 2;
+        sum.set(sum.get() + update.getSum().get());
+        max.set(Math.max(max.get(), update.getMax().get()));
+        min.set(Math.min(min.get(), update.getMin().get()));
+        avg.set((avg.get() + update.getAvg().get()) / 2);
     }
 
-    @Override
-    public boolean equals(Object o) {
+    @Override public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -57,9 +56,9 @@ public class MetricStats {
             return false;
         }
         MetricStats that = (MetricStats) o;
-        return Double.compare(getSum(), that.getSum()) == 0 && Double.compare(getMin(), that.getMin()) == 0
-            && Double.compare(getMax(), that.getMax()) == 0 && Double.compare(getAvg(), that.getAvg()) == 0
-            && Objects.equals(getName(), that.getName());
+        return Objects.equals(getName(), that.getName()) && Objects.equals(getSum(), that.getSum())
+            && Objects.equals(getMin(), that.getMin()) && Objects.equals(getMax(), that.getMax())
+            && Objects.equals(getAvg(), that.getAvg());
     }
 
     @Override
@@ -67,14 +66,13 @@ public class MetricStats {
         return Objects.hash(getName(), getSum(), getMin(), getMax(), getAvg());
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "MetricStats{"
             + "name='" + name + '\''
-            + ", sum=" + sum
-            + ", min=" + min
-            + ", max=" + max
-            + ", avg=" + avg
+            + ", sum=" + sum.get()
+            + ", min=" + min.get()
+            + ", max=" + max.get()
+            + ", avg=" + avg.get()
             + '}';
     }
 }

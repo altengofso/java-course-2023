@@ -22,10 +22,12 @@ public class StatsCollectorTest {
             .toArray(CompletableFuture[]::new);
         CompletableFuture.allOf(futures).join();
         executorService.close();
+        Thread.sleep(500);
         var stats = collector.stats();
-        assertThat(stats).isEqualTo(List.of(
+        assertThat(stats.get()).isEqualTo(List.of(
             new MetricStats("temperature", 540, 16, 20, 18),
             new MetricStats("windSpeed", 240, 6, 10, 8)
         ));
+        collector.stop();
     }
 }
