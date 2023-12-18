@@ -15,9 +15,6 @@ import lombok.SneakyThrows;
 
 public class Server {
     private static final int MAX_CONNECTIONS = 5;
-    private final ServerSocket serverSocket;
-    private AtomicBoolean isAlive;
-    private final ExecutorService executorService;
     private static final Map<String, String> RESPONSE_MAP = Map.of(
         "личности", "Не переходи на личности там, где их нет",
         "оскорбления", "Если твои противники перешли на личные оскорбления, будь уверена — твоя победа не за горами",
@@ -25,6 +22,9 @@ public class Server {
         "интеллект", "Чем ниже интеллект, тем громче оскорбления"
     );
     private static final String DEFAULT_RESPONSE = "Извини, я не понял вопроса.";
+    private final ServerSocket serverSocket;
+    private AtomicBoolean isAlive;
+    private final ExecutorService executorService;
 
     @SneakyThrows
     public Server(int port) {

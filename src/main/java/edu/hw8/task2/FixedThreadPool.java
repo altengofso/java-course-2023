@@ -9,7 +9,7 @@ public class FixedThreadPool implements ThreadPool {
     private final int threadCount;
     private final BlockingQueue<Runnable> taskQueue;
     private final Thread[] threads;
-    private AtomicBoolean isAlive;
+    private final AtomicBoolean isAlive;
 
     public FixedThreadPool(int threadCount) {
         if (threadCount < 0) {
@@ -18,12 +18,12 @@ public class FixedThreadPool implements ThreadPool {
         this.threadCount = threadCount;
         this.taskQueue = new LinkedBlockingQueue<>();
         this.threads = new Worker[threadCount];
+        this.isAlive = new AtomicBoolean(true);
         start();
     }
 
     @Override
     public void start() {
-        isAlive = new AtomicBoolean(true);
         for (int i = 0; i < threadCount; ++i) {
             threads[i] = new Worker();
             threads[i].start();
@@ -37,10 +37,11 @@ public class FixedThreadPool implements ThreadPool {
     }
 
     @Override
-    public void close() throws Exception {
+    @SneakyThrows
+    public void close() {
         isAlive.set(false);
         for (Thread thread : threads) {
-            thread.interrupt();
+            thread.join();
         }
     }
 
