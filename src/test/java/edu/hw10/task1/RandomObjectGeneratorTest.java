@@ -1,6 +1,7 @@
 package edu.hw10.task1;
 
 import org.junit.jupiter.api.Test;
+import java.util.NoSuchElementException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -22,6 +23,6 @@ public class RandomObjectGeneratorTest {
     @Test
     void testRandomObjectGeneratorThrowsWhenFactoryMethodInvalid() {
         RandomObjectGenerator randomObjectGenerator = new RandomObjectGenerator();
-        assertThrows(IllegalArgumentException.class, () -> randomObjectGenerator.nextObject(TestClass.class, "new"));
+        assertThrows(NoSuchElementException.class, () -> randomObjectGenerator.nextObject(TestClass.class, "new"));
     }
 }

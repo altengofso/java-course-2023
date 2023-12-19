@@ -3,6 +3,8 @@ package edu.hw10.task1;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Map;
 import lombok.SneakyThrows;
 
@@ -32,27 +34,16 @@ public class RandomObjectGenerator {
     }
 
     private Constructor<?> getConstructor(Class<?> clazz) {
-        var constructors = clazz.getDeclaredConstructors();
-        if (constructors.length == 0) {
-            throw new IllegalArgumentException("Class %s has no constructors.".formatted(clazz.getName()));
-        }
-        var result = constructors[0];
-        for (var constructor : constructors) {
-            if (constructor.getParameterCount() > result.getParameterCount()) {
-                result = constructor;
-            }
-        }
-        return result;
+        return Arrays.stream(clazz.getDeclaredConstructors())
+            .max(Comparator.comparing(Constructor::getParameterCount))
+            .orElseThrow();
     }
 
     private <T> Method getFactoryMethod(Class<T> clazz, String factoryMethodName) {
-        var methods = clazz.getDeclaredMethods();
-        for (var method : methods) {
-            if (method.getName().equals(factoryMethodName)) {
-                return method;
-            }
-        }
-        throw new IllegalArgumentException("Method %s not found.".formatted(factoryMethodName));
+        return Arrays.stream(clazz.getDeclaredMethods())
+            .filter(method -> method.getName().equals(factoryMethodName))
+            .findFirst()
+            .orElseThrow();
     }
 
     private Object[] generateArguments(Parameter[] parameters) {
