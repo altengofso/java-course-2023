@@ -42,11 +42,10 @@
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-site-plugin.version>4.0.0-M9</maven-site-plugin.version>
-
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
-
         <bytebuddy.version>1.14.8</bytebuddy.version>
         <asm.version>9.6</asm.version>
+        <jmh.version>1.37</jmh.version>
     </properties>
 
     <dependencyManagement>
@@ -134,6 +133,12 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.16.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${jmh.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
